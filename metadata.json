@@ -1,0 +1,6 @@
+{
+  "name": "삼형제 효도통장 대시보드",
+  "description": "매달 20만원씩 모으는 삼형제의 효도통장 실시간 구글 시트 연동 대시보드 및 가계부",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
