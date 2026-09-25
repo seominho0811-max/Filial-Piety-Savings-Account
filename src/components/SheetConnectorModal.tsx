@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Sheet, Link as LinkIcon, CheckCircle2, AlertCircle, RefreshCw, HelpCircle, ArrowRight } from 'lucide-react';
+import { X, Sheet, Link as LinkIcon, CheckCircle2, AlertCircle, RefreshCw, HelpCircle, ArrowRight, Globe } from 'lucide-react';
 import { DataSourceConfig, Transaction } from '../types/fund';
 import { fetchGoogleSheetData } from '../utils/googleSheets';
 
@@ -183,6 +183,30 @@ export const SheetConnectorModal: React.FC<SheetConnectorModalProps> = ({
               </p>
             </div>
           )}
+
+          {/* Vercel Troubleshooting Box */}
+          <div className="p-3 bg-amber-50/80 border border-amber-200/90 rounded-xl space-y-1.5 text-[11px] text-amber-950">
+            <div className="font-bold flex items-center justify-between">
+              <span className="flex items-center gap-1.5 text-amber-900">
+                <Globe className="w-3.5 h-3.5 text-amber-700" />
+                <span>Vercel 배포 후 시트 연결이 끊어졌을 때:</span>
+              </span>
+            </div>
+            <p className="text-amber-800 leading-snug">
+              도메인이 <code className="bg-amber-100 px-1 py-0.5 rounded font-mono">vercel.app</code>으로 바뀌면서 브라우저 저장소가 초기화된 현상입니다.
+            </p>
+            <ul className="text-amber-900 list-disc list-inside space-y-0.5 pt-0.5">
+              <li>
+                <strong>가장 빠른 방법:</strong> 위 입력창에 시트 주소를 넣고 <strong>[연결 테스트 &gt; 대시보드에 적용하기]</strong>를 1회 누르시면 즉시 연결됩니다!
+              </li>
+              <li>
+                <strong>삼형제 모두 자동 연결:</strong> Vercel 환경변수 <code className="bg-amber-100 px-1 py-0.5 rounded font-mono font-bold">VITE_GOOGLE_SHEET_URL</code> 등록 후 <strong>[Deployments &gt; Redeploy]</strong>를 꼭 눌러주세요.
+              </li>
+              <li>
+                <strong>또는 코드에 직접 등록:</strong> <code className="bg-amber-100 px-1 py-0.5 rounded font-mono">src/config/defaultSheet.ts</code>에 시트 주소를 적어두면 환경변수 없이도 무조건 자동 연결됩니다.
+              </li>
+            </ul>
+          </div>
 
           {/* Current Status Box */}
           <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-500">

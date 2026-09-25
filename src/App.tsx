@@ -8,6 +8,7 @@ import {
   computeMonthlyAggregations,
   computeCategoryExpenses,
 } from './data/mockData';
+import { DEFAULT_GOOGLE_SHEET_URL } from './config/defaultSheet';
 import { fetchGoogleSheetData, saveTransactionToGoogleSheet, isAppsScriptUrl } from './utils/googleSheets';
 import { Header } from './components/Header';
 import { MobileBottomNav } from './components/MobileBottomNav';
@@ -42,19 +43,23 @@ export default function App() {
 
   // Data source config
   const [dataSource, setDataSource] = useState<DataSourceConfig>(() => {
+    let savedConfig: DataSourceConfig | null = null;
     try {
       const saved = localStorage.getItem(STORAGE_KEY_CONFIG);
-      if (saved) return JSON.parse(saved);
+      if (saved) savedConfig = JSON.parse(saved);
     } catch {
       // fallback
     }
+
     const envUrl = (import.meta as { env?: Record<string, string> }).env?.VITE_GOOGLE_SHEET_URL || '';
+    const effectiveUrl = savedConfig?.url || envUrl || DEFAULT_GOOGLE_SHEET_URL || '';
+
     return {
-      mode: envUrl ? 'live' : 'demo',
-      url: envUrl,
+      mode: effectiveUrl ? 'live' : 'demo',
+      url: effectiveUrl,
       sheetId: '',
       sheetName: 'Sheet1',
-      lastSyncedAt: null,
+      lastSyncedAt: savedConfig?.lastSyncedAt || null,
       status: 'idle',
     };
   });
