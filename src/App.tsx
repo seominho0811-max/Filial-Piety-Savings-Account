@@ -240,13 +240,13 @@ export default function App() {
       />
 
       {/* Main Viewport Container (optimized for modern readability) */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-7 space-y-4 sm:space-y-6 pb-24 md:pb-12">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 space-y-4 sm:space-y-5 pb-24 md:pb-12">
         {/* Banner: If in demo mode, show gentle modern prompt */}
         {dataSource.mode === 'demo' && (
-          <div className="bg-white rounded-2xl border border-neutral-200/80 p-3.5 sm:p-4.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-2xs">
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center shrink-0">
-                <Sparkles className="w-4 h-4 text-amber-600" />
+          <div className="bg-white rounded-2xl border border-neutral-200/80 p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs shadow-2xs">
+            <div className="flex items-center gap-2.5">
+              <span className="w-7 h-7 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center shrink-0">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
               </span>
               <div>
                 <p className="font-bold text-neutral-900 leading-snug">
@@ -278,7 +278,7 @@ export default function App() {
 
         {/* Error notification if sync failed */}
         {dataSource.status === 'error' && dataSource.errorMessage && (
-          <div className="bg-rose-50 border border-rose-200 rounded-2xl p-3.5 text-xs text-rose-800 flex items-center justify-between gap-2">
+          <div className="bg-rose-50 border border-rose-200 rounded-2xl p-3 text-xs text-rose-800 flex items-center justify-between gap-2">
             <div className="leading-snug">
               <span className="font-bold">시트 동기화 실패:</span> {dataSource.errorMessage}
             </div>

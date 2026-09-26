@@ -126,9 +126,9 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={onOpenConnector}
               title="구글 시트 연동 설정"
-              className="h-9 px-3 text-xs font-medium text-neutral-700 bg-neutral-100 hover:bg-neutral-200/70 rounded-xl transition-all flex items-center gap-1.5"
+              className="w-9 h-9 sm:w-auto sm:px-3 text-xs font-medium text-neutral-700 bg-neutral-100 hover:bg-neutral-200/70 rounded-xl transition-all flex items-center justify-center gap-1.5"
             >
-              <Sheet className="w-3.5 h-3.5 text-emerald-600" />
+              <Sheet className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
               <span className="hidden sm:inline">시트 설정</span>
             </button>
 
