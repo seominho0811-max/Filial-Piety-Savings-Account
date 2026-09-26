@@ -23,24 +23,10 @@ import { Sparkles, Heart, HelpCircle, Sheet } from 'lucide-react';
 
 const STORAGE_KEY_TXS = 'filial_fund_transactions_v1';
 const STORAGE_KEY_CONFIG = 'filial_fund_datasource_v1';
-const STORAGE_KEY_NAMES = 'filial_fund_brother_names_v1';
+
+const FIXED_BROTHER_NAMES = { b1: '첫째', b2: '둘째', b3: '셋째' };
 
 export default function App() {
-  // Brother names
-  const [customNames, setCustomNames] = useState<{ b1: string; b2: string; b3: string }>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_NAMES);
-      if (saved) return JSON.parse(saved);
-    } catch {
-      // fallback
-    }
-    return {
-      b1: '첫째 (민호)',
-      b2: '둘째 (준호)',
-      b3: '셋째 (진호)',
-    };
-  });
-
   // Data source config
   const [dataSource, setDataSource] = useState<DataSourceConfig>(() => {
     let savedConfig: DataSourceConfig | null = null;
@@ -85,12 +71,6 @@ export default function App() {
 
   // Active navigation tab
   const [activeTab, setActiveTab] = useState<'overview' | 'brothers' | 'trends' | 'transactions'>('overview');
-
-  // Save changes to localStorage
-  const updateNames = (names: { b1: string; b2: string; b3: string }) => {
-    setCustomNames(names);
-    localStorage.setItem(STORAGE_KEY_NAMES, JSON.stringify(names));
-  };
 
   // Sync data from Google Sheets
   const syncFromSheet = useCallback(async (targetUrl: string) => {
@@ -240,8 +220,8 @@ export default function App() {
   // Computed data calculations
   const summary = useMemo(() => computeFundSummary(transactions), [transactions]);
   const brothers = useMemo(
-    () => computeBrotherStatuses(transactions, customNames),
-    [transactions, customNames]
+    () => computeBrotherStatuses(transactions, FIXED_BROTHER_NAMES),
+    [transactions]
   );
   const monthlyData = useMemo(() => computeMonthlyAggregations(transactions), [transactions]);
   const categoryExpenses = useMemo(() => computeCategoryExpenses(transactions), [transactions]);
@@ -311,37 +291,19 @@ export default function App() {
           </div>
         )}
 
-        {/* 1. Summary Cards (Always Visible) */}
-        <section aria-label="효도통장 잔액 요약">
-          <SummaryCards summary={summary} />
-        </section>
-
-        {/* 2. Primary Tabs Content */}
+        {/* 2. Primary Tabs Content (No duplicate sections across tabs) */}
         {activeTab === 'overview' && (
           <div className="space-y-4 sm:space-y-6">
-            {/* 3 Brothers Status & Matrix */}
+            {/* 1. Account Balance & Savings Target (Home only) */}
+            <section aria-label="효도통장 잔액 요약">
+              <SummaryCards summary={summary} />
+            </section>
+
+            {/* 2. Three Brothers Profile Status Cards */}
             <section aria-label="삼형제 납입 현황">
               <BrotherStatusCard
                 brothers={brothers}
-                monthlyData={monthlyData}
-                customNames={customNames}
-                onUpdateNames={updateNames}
-              />
-            </section>
-
-            {/* Monthly Trend & Breakdown Charts */}
-            <section aria-label="월별 추이 및 항목 분석">
-              <MonthlyChart
-                monthlyData={monthlyData}
-                categoryExpenses={categoryExpenses}
-              />
-            </section>
-
-            {/* Recent Ledger Entries */}
-            <section aria-label="거래 내역">
-              <TransactionList
-                transactions={transactions}
-                onOpenNewEntry={() => setIsNewEntryOpen(true)}
+                mode="cards"
               />
             </section>
           </div>
@@ -349,12 +311,12 @@ export default function App() {
 
         {activeTab === 'brothers' && (
           <div className="space-y-4 sm:space-y-6">
-            <section aria-label="삼형제 납입 현황 상세">
+            {/* Monthly Payment Matrix only - No duplicate balance cards */}
+            <section aria-label="삼형제 월별 납입 현황표">
               <BrotherStatusCard
                 brothers={brothers}
                 monthlyData={monthlyData}
-                customNames={customNames}
-                onUpdateNames={updateNames}
+                mode="matrix"
               />
             </section>
           </div>
@@ -362,6 +324,7 @@ export default function App() {
 
         {activeTab === 'trends' && (
           <div className="space-y-4 sm:space-y-6">
+            {/* Monthly Trend & Breakdown Charts only - No duplicate balance cards */}
             <section aria-label="월별 입출금 및 항목별 분석">
               <MonthlyChart
                 monthlyData={monthlyData}
@@ -373,6 +336,7 @@ export default function App() {
 
         {activeTab === 'transactions' && (
           <div className="space-y-4 sm:space-y-6">
+            {/* Ledger only - No duplicate balance cards */}
             <section aria-label="효도통장 전체 거래내역">
               <TransactionList
                 transactions={transactions}
@@ -433,7 +397,6 @@ export default function App() {
         isOpen={isNewEntryOpen}
         onClose={() => setIsNewEntryOpen(false)}
         onAddTransaction={handleAddTransaction}
-        customNames={customNames}
         dataSource={dataSource}
         onOpenGuide={() => setIsGuideOpen(true)}
       />

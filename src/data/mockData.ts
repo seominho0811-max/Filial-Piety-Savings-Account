@@ -170,7 +170,7 @@ export function computeBrotherStatuses(
   const b1: BrotherStatus = {
     key: 'brother1',
     defaultRole: '첫째',
-    displayName: customNames.b1 || '첫째 (민호)',
+    displayName: '첫째',
     totalContributed: 0,
     expectedContribution: expectedPerPerson,
     isCurrentMonthPaid: false,
@@ -181,7 +181,7 @@ export function computeBrotherStatuses(
   const b2: BrotherStatus = {
     key: 'brother2',
     defaultRole: '둘째',
-    displayName: customNames.b2 || '둘째 (준호)',
+    displayName: '둘째',
     totalContributed: 0,
     expectedContribution: expectedPerPerson,
     isCurrentMonthPaid: false,
@@ -192,7 +192,7 @@ export function computeBrotherStatuses(
   const b3: BrotherStatus = {
     key: 'brother3',
     defaultRole: '셋째',
-    displayName: customNames.b3 || '셋째 (진호)',
+    displayName: '셋째',
     totalContributed: 0,
     expectedContribution: expectedPerPerson,
     isCurrentMonthPaid: false,

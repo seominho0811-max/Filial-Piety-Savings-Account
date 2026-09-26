@@ -7,7 +7,6 @@ interface NewEntryModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAddTransaction: (tx: Transaction) => Promise<{ success: boolean; message: string; sheetSaved: boolean }>;
-  customNames: { b1: string; b2: string; b3: string };
   dataSource: DataSourceConfig;
   onOpenGuide: () => void;
 }
@@ -16,7 +15,6 @@ export const NewEntryModal: React.FC<NewEntryModalProps> = ({
   isOpen,
   onClose,
   onAddTransaction,
-  customNames,
   dataSource,
   onOpenGuide,
 }) => {
@@ -229,9 +227,9 @@ export const NewEntryModal: React.FC<NewEntryModalProps> = ({
                 onChange={(e) => setMember(e.target.value)}
                 className="w-full text-xs px-3 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-neutral-900 min-h-[44px]"
               >
-                <option value="첫째">{customNames.b1 || '첫째 (민호)'}</option>
-                <option value="둘째">{customNames.b2 || '둘째 (준호)'}</option>
-                <option value="셋째">{customNames.b3 || '셋째 (진호)'}</option>
+                <option value="첫째">첫째</option>
+                <option value="둘째">둘째</option>
+                <option value="셋째">셋째</option>
                 {type === '지출' && <option value="공동">공동 (삼형제 공동)</option>}
               </select>
             </div>
