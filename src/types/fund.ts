@@ -1,13 +1,13 @@
 export type TransactionType = '입금' | '지출';
 
-export type BrotherName = '첫째' | '둘째' | '셋째' | string;
+export type BrotherName = '첫째' | '둘째' | '셋째' | '예금 이자' | string;
 
 export interface Transaction {
   id: string;
   date: string; // YYYY-MM-DD
   type: TransactionType;
-  member: string; // 첫째, 둘째, 셋째, 또는 지출 담당자/부모님
-  category: string; // 정기적립, 부모님용돈, 생신/기념일, 병원/건강, 가족식사/여행, 기타
+  member: string; // 첫째, 둘째, 셋째, 예금 이자, 또는 지출 담당자/부모님
+  category: string; // 정기적립, 예금이자, 부모님용돈, 생신/기념일, 병원/건강, 가족식사/여행, 기타
   amount: number;
   note: string;
 }

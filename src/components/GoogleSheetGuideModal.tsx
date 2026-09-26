@@ -147,7 +147,9 @@ export const GoogleSheetGuideModal: React.FC<GoogleSheetGuideModalProps> = ({
                       <td className="p-2.5 text-neutral-600">
                         <span className="font-semibold text-neutral-900">첫째</span>,{' '}
                         <span className="font-semibold text-neutral-900">둘째</span>,{' '}
-                        <span className="font-semibold text-neutral-900">셋째</span>, 또는 <span className="font-semibold text-neutral-900">공동</span>
+                        <span className="font-semibold text-neutral-900">셋째</span>,{' '}
+                        <span className="font-semibold text-neutral-900">예금 이자</span>, 또는{' '}
+                        <span className="font-semibold text-neutral-900">공동</span>
                       </td>
                     </tr>
                     <tr>

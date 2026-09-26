@@ -224,12 +224,25 @@ export const NewEntryModal: React.FC<NewEntryModalProps> = ({
               </label>
               <select
                 value={member}
-                onChange={(e) => setMember(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setMember(val);
+                  if (val === '예금 이자') {
+                    setCategory('예금이자');
+                    if (amount === '200000') setAmount('');
+                    if (!note) setNote('통장 결산 이자');
+                  } else if (val === '첫째' || val === '둘째' || val === '셋째') {
+                    if (category === '예금이자') setCategory('정기적립');
+                    if (!amount) setAmount('200000');
+                    if (note === '통장 결산 이자') setNote('');
+                  }
+                }}
                 className="w-full text-xs px-3 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-neutral-900 min-h-[44px]"
               >
                 <option value="첫째">첫째</option>
                 <option value="둘째">둘째</option>
                 <option value="셋째">셋째</option>
+                {type === '입금' && <option value="예금 이자">예금 이자 (통장 결산)</option>}
                 {type === '지출' && <option value="공동">공동 (삼형제 공동)</option>}
               </select>
             </div>
@@ -241,14 +254,14 @@ export const NewEntryModal: React.FC<NewEntryModalProps> = ({
               <label className="block text-xs font-semibold text-neutral-700 mb-1">금액 (원)</label>
               <input
                 type="number"
-                step="1000"
+                step="1"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                placeholder="200000"
+                placeholder={member === '예금 이자' ? '예: 25400' : '200000'}
                 required
                 className="w-full text-xs px-3 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-neutral-900 font-mono min-h-[44px]"
               />
-              {type === '입금' && (
+              {type === '입금' && member !== '예금 이자' && (
                 <div className="mt-1.5 flex gap-1.5">
                   <button
                     type="button"
@@ -278,6 +291,7 @@ export const NewEntryModal: React.FC<NewEntryModalProps> = ({
                 {type === '입금' ? (
                   <>
                     <option value="정기적립">정기적립 (월 20만원)</option>
+                    <option value="예금이자">예금이자 (통장 결산 이자)</option>
                     <option value="추가적립">추가적립</option>
                     <option value="기타입금">기타입금</option>
                   </>

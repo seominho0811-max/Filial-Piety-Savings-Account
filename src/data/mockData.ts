@@ -16,6 +16,7 @@ export const INITIAL_MOCK_TRANSACTIONS: Transaction[] = [
   { id: 'tx-2026-07-05', date: '2026-07-05', type: '입금', member: '첫째', category: '정기적립', amount: 200000, note: '7월 회비 입금' },
   { id: 'tx-2026-07-10', date: '2026-07-10', type: '입금', member: '둘째', category: '정기적립', amount: 200000, note: '7월 회비 입금' },
   { id: 'tx-2026-07-15', date: '2026-07-15', type: '입금', member: '셋째', category: '정기적립', amount: 200000, note: '7월 회비 입금' },
+  { id: 'tx-2026-06-30', date: '2026-06-30', type: '입금', member: '예금 이자', category: '예금이자', amount: 32400, note: '2026년 상반기 정기예금 결산 이자' },
   { id: 'tx-2026-06-05', date: '2026-06-05', type: '입금', member: '첫째', category: '정기적립', amount: 200000, note: '6월 회비 입금' },
   { id: 'tx-2026-06-10', date: '2026-06-10', type: '입금', member: '둘째', category: '정기적립', amount: 200000, note: '6월 회비 입금' },
   { id: 'tx-2026-06-15', date: '2026-06-15', type: '입금', member: '셋째', category: '정기적립', amount: 200000, note: '6월 회비 입금' },
@@ -41,6 +42,7 @@ export const INITIAL_MOCK_TRANSACTIONS: Transaction[] = [
   { id: 'tx-2026-01-15', date: '2026-01-15', type: '입금', member: '셋째', category: '정기적립', amount: 200000, note: '1월 회비 입금' },
 
   // 2025 transactions (Starting Jan 2025)
+  { id: 'tx-2025-12-31', date: '2025-12-31', type: '입금', member: '예금 이자', category: '예금이자', amount: 28500, note: '2025년 하반기 정기예금 결산 이자' },
   { id: 'tx-2025-12-24', date: '2025-12-24', type: '지출', member: '셋째', category: '생신/기념일', amount: 480000, note: '연말 크리스마스 부모님 방한 거위털 패딩 선물' },
   { id: 'tx-2025-12-05', date: '2025-12-05', type: '입금', member: '첫째', category: '정기적립', amount: 200000, note: '12월 회비 입금' },
   { id: 'tx-2025-12-10', date: '2025-12-10', type: '입금', member: '둘째', category: '정기적립', amount: 200000, note: '12월 회비 입금' },

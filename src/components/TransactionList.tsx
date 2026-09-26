@@ -27,7 +27,11 @@ export const TransactionList: React.FC<TransactionListProps> = ({
       if (typeFilter !== 'all' && tx.type !== typeFilter) return false;
 
       if (memberFilter !== 'all') {
-        if (!tx.member.includes(memberFilter)) return false;
+        if (memberFilter === '예금 이자') {
+          if (!tx.member.includes('이자') && !tx.member.includes('예금')) return false;
+        } else if (!tx.member.includes(memberFilter)) {
+          return false;
+        }
       }
 
       if (searchTerm.trim()) {
@@ -165,6 +169,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({
               <option value="첫째">첫째</option>
               <option value="둘째">둘째</option>
               <option value="셋째">셋째</option>
+              <option value="예금 이자">예금 이자</option>
               <option value="공동">공동</option>
             </select>
 
@@ -219,9 +224,15 @@ export const TransactionList: React.FC<TransactionListProps> = ({
                       <span className="text-xs font-bold text-neutral-900 truncate">
                         {tx.category}
                       </span>
-                      <span className="text-[11px] text-neutral-400 font-medium shrink-0">
-                        · {tx.member}
-                      </span>
+                      {tx.member.includes('이자') ? (
+                        <span className="text-[10px] font-semibold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded-md border border-amber-200/60 shrink-0">
+                          {tx.member}
+                        </span>
+                      ) : (
+                        <span className="text-[11px] text-neutral-400 font-medium shrink-0">
+                          · {tx.member}
+                        </span>
+                      )}
                     </div>
 
                     <div className="text-[11px] text-neutral-400 font-mono tabular-nums truncate mt-0.5">
@@ -290,8 +301,14 @@ export const TransactionList: React.FC<TransactionListProps> = ({
                         <span>{tx.type}</span>
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 whitespace-nowrap font-bold text-neutral-900">
-                      {tx.member}
+                    <td className="py-3.5 px-4 whitespace-nowrap">
+                      {tx.member.includes('이자') ? (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-200/70">
+                          {tx.member}
+                        </span>
+                      ) : (
+                        <span className="font-bold text-neutral-900">{tx.member}</span>
+                      )}
                     </td>
                     <td className="py-3.5 px-4 whitespace-nowrap text-neutral-600 font-medium">
                       {tx.category}
